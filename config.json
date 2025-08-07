@@ -8,7 +8,7 @@
     "allowInbox": false,
     "autoClean": true,
     "commandDisabled": [
-        "sim.js"
+        ""
     ],
     "eventDisabled": [
         "join.js"
@@ -16,13 +16,13 @@
     "EMAIL": "",
     "PASSWORD": "",
     "OTPKEY": "",
-    "BOTNAME": "Your-Father",
-    "PREFIX": "/",
+    "BOTNAME": "oxygen (⁠◠⁠‿⁠◕⁠)",
+    "PREFIX": "-",
     "ADMINBOT": [
-        "100037743553265"
+        "100084228500089"
     ],
     "NDH": [
-        "100037743553265"
+        "100084228500089"
     ],
     "DATABASE": {
         "sqlite": {
@@ -224,7 +224,7 @@
         "SOUNDCLOUD_API": "M4TSyS6eV0AcMynXkA3qQASGcOFQTWub"
     },
     "god": {
-        "enable": true
+        "enable": false
     },
     "help2": {
         "autoUnsend": true,
