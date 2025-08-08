@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const baseApiUrl = async () => {
-     return "https://milanbhandari.imageapi.repl.co/simsimi?";
+     return "https://sim.api.nexalo.xyz/v1/chat?";
 };
 
 module.exports.config = {
