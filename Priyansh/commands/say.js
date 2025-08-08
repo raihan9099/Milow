@@ -10,7 +10,7 @@ module.exports.config = {
   description: "Make the bot return Google TTS audio (female Bangla voice preferred)",
   commandCategory: "media",
   usages: "[bn/en/ru/ko/ja/tl] [Text]",
-  cooldowns: 5,
+  cooldowns: 1,
   dependencies: {
     "axios": "",
     "fs-extra": "",
@@ -50,13 +50,13 @@ module.exports.run = async function({ api, event, args }) {
     let content = (event.type === "message_reply") ? event.messageReply.body : args.join(" ");
     if (!content) return api.sendMessage("Please provide text to speak!", event.threadID, event.messageID);
 
-    let languageToSay = global.config.language || "en"; // default language
+    let languageToSay = global.config.language || "bn"; // default language
 
     // Check if first word is language code like "bn Hello"
     const firstSpace = content.indexOf(" ");
     if (firstSpace > 0) {
       const possibleLang = content.slice(0, firstSpace).toLowerCase();
-      const supportedLangs = ["bn", "en", "ru", "ko", "ja", "tl"];
+      const supportedLangs = ["bn"];
       if (supportedLangs.includes(possibleLang)) {
         languageToSay = possibleLang;
         content = content.slice(firstSpace + 1);
