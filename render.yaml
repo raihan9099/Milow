@@ -1,62 +1,41 @@
-Render.com manifest for deploying a Mirai bot (Node.js)
-
-Replace placeholders (repo, branch, startCommand, env vars, secrets) with your values
-
-Save as render.yaml at the root of your repository.
-
 services:
+  - type: web
+    name: mirai-bot
+    runtime: node
+    repo: https://github.com/raihan9099/Milow/repo
+    plan: free
+    region: oregon
+    branch: main
+    buildCommand: npm install
+    startCommand: node mirai.js
+    autoDeploy: true
+    envVars:
+      - key: FB_APP_STATE
+        sync: false     # your fbstate.json string or URL
+      - key: BOT_PREFIX
+        value: "."
+      - key: OWNER_NAME
+        value: "Maisha"
+      - key: SIMSIMI_API_KEY
+        sync: false     # your SimSimi API key
+      - key: DATABASE_URL
+        fromDatabase:
+          name: mirai-db
+          property: connectionString
+      - fromGroup: mirai-settings
 
-type: web name: mirai-bot-web env: node branch: main                # change to the branch you want to deploy repo: https://github.com/<your-org>/<your-repo>  # replace with your repo URL plan: starter               # or free, standard-1x, etc. buildCommand: npm ci && npm run build || true startCommand: npm run start # or node index.js or your bot start script autoDeploy: true pullRequestAutoDeploy: true healthCheckPath: /health    # optional: add a small health endpoint in your bot envVars:
+databases:
+  - name: mirai-db
+    plan: free
+    diskSizeGB: 1
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: public
 
-key: NODE_ENV value: production
-
-key: MIRAI_API_KEY fromService: MIRAI_API_KEY_SECRET
-
-key: DB_URL fromService: DB_URL_SECRET
-
-key: PORT value: "3000"
-
-
-type: worker name: mirai-bot-worker env: node branch: main repo: https://github.com/<your-org>/<your-repo> plan: starter buildCommand: npm ci startCommand: npm run worker # if you have a separate worker command autoDeploy: true envVars:
-
-key: NODE_ENV value: production
-
-key: MIRAI_API_KEY fromService: MIRAI_API_KEY_SECRET
-
-key: DB_URL fromService: DB_URL_SECRET
-
-
-
-Optional: static site or cron jobs
-
-cronJobs:
-
-name: mirai-bot-cron schedule: "0 * * * *"    # every hour; use cron syntax command: node scripts/cron.js branch: main env:
-
-key: MIRAI_API_KEY fromService: MIRAI_API_KEY_SECRET
-
-
-
-Secrets (local names used above) — these are declarations only.
-
-Create the actual secrets in the Render dashboard or render secrets create.
-
-secrets:
-
-name: MIRAI_API_KEY_SECRET
-
-value is not stored here; create via Render UI/CLI
-
-name: DB_URL_SECRET
-
-
-Notes:
-
-- If you prefer deploying with Docker, change env: node to env: docker and add a Dockerfile.
-
-- Ensure your repository contains the start scripts mentioned (start, worker) in package.json.
-
-- Health endpoint should return 200 to keep Render from restarting the service.
-
-- Replace repo URL and any placeholder values before committing.
-
+envVarGroups:
+  - name: mirai-settings
+    envVars:
+      - key: LANGUAGE
+        value: bn
+      - key: OWNER_ID
+        value: "1000XXXXXXXXXXX"
