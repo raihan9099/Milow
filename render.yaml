@@ -5,7 +5,7 @@ services:
     repo: https://github.com/raihan9099/Milow/repo
     plan: free
     region: oregon
-    branch: 'main'
+    branch: main
     buildCommand: npm install
     startCommand: node mirai.js
     autoDeploy: false
