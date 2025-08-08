@@ -5,19 +5,19 @@ services:
     repo: https://github.com/raihan9099/Milow/repo
     plan: free
     region: oregon
-    branch: main
+    branch: master # or your actual branch name
     buildCommand: npm install
     startCommand: node mirai.js
     autoDeploy: true
     envVars:
       - key: FB_APP_STATE
-        sync: false     # your fbstate.json string or URL
+        sync: false
       - key: BOT_PREFIX
-        value: "."
+        value: "!"
       - key: OWNER_NAME
         value: "Maisha"
       - key: SIMSIMI_API_KEY
-        sync: false     # your SimSimi API key
+        sync: false
       - key: DATABASE_URL
         fromDatabase:
           name: mirai-db
@@ -27,7 +27,6 @@ services:
 databases:
   - name: mirai-db
     plan: free
-    diskSizeGB: 1
     ipAllowList:
       - source: 0.0.0.0/0
         description: public
